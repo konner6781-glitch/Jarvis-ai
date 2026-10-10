@@ -69,8 +69,7 @@ shortcuts_path = Path(shortcuts_folder)
 
 for item in shortcuts_path.iterdir():
    if item.is_file() and item.suffix == ".lnk":
-      print(f"Shortcut: {item.name}")
-
+     pass 
 
 def message_log(message, answer, mode):
     current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
