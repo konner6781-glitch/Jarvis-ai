@@ -55,9 +55,12 @@ def ask_jarvis(message, memory):
 
 
 JARVIS_FOLDER = Path(__file__).parent
-MEMORY_FILE = JARVIS_FOLDER / "memory.txt"
-MESSAGES_FILE = JARVIS_FOLDER / "messages.txt"
 
+PRIVATE_DATA_FOLDER = JARVIS_FOLDER / "private_data"
+PRIVATE_DATA_FOLDER.mkdir(exist_ok=True)
+
+MEMORY_FILE = PRIVATE_DATA_FOLDER / "memory.txt"
+MESSAGES_FILE = PRIVATE_DATA_FOLDER / "messages.txt"
 
 shortcuts_folder = f"{user_path}\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs"
 shortcuts_path = Path(shortcuts_folder)
