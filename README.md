@@ -3,7 +3,7 @@
 *A locally hosted, AI-powered desktop assistant built with Python.*
 
 
-The examples provided in this github page only represent what the messages storing and memory log could look like not a real AI response or real conversation, they are only their to give formatting examples.
+The examples provided on this GitHub page demonstrate what the message log and memory file could look like. They are not real conversations or actual AI responses; they are provided solely to demonstrate the file formats.
 
 
 ## Overview
