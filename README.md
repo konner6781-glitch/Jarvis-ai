@@ -45,7 +45,17 @@ Jarvis AI is a personal desktop assistant that combines Python automation with a
 
 5. Make sure Ollama is running locally.
 
-6. Run `Jarvis main.py` using Python.
+6. From the project folder, launch the desktop interface with:
+
+   ```bash
+   python "Jarvis_GUI_Integrated.py"
+   ```
+
+   To use the original terminal interface instead, run:
+
+   ```bash
+   python "Jarvis main.py"
+   ```
 
 Jarvis connects to Ollama through its local API at `http://localhost:11434/api/chat`.
 
@@ -82,7 +92,7 @@ After entering `/memory` inside chat, choose a mode:
 * **Write (`write`)** — Enter a memory note to append to `memory.txt`. Jarvis then loads the updated memory and answers your next prompt using it.
 * **Return (`return`)** — Leaves the memory menu and returns to normal chat.
 
-Normal chat does not load the saved memory file into the AI request. This allows you to chat without supplying your saved memory.
+The terminal version does not load saved memory in normal chat. The desktop app also starts with memory use disabled; turn it on in Settings to include saved notes in ordinary conversations. Read and write memory modes always use the saved file.
 
 ## Data and file storage
 
@@ -121,7 +131,7 @@ I like coding.
 
 The modes currently recorded are:
 
-* `default` — Normal chat without saved memory supplied to the AI.
+* `default` — Normal chat; the desktop app setting can optionally include saved memory.
 * `read` — Chat using saved memory.
 * `write` — Chat following a memory update.
 
