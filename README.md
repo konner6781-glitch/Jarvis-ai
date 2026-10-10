@@ -2,6 +2,10 @@
 
 *A locally hosted, AI-powered desktop assistant built with Python.*
 
+
+The examples provided on this GitHub page demonstrate what the message log and memory file could look like. They are not real conversations or actual AI responses; they are provided solely to demonstrate the file formats.
+
+
 ## Overview
 
 Jarvis AI is a Windows desktop assistant designed to make everyday tasks easier. It can chat with you using a locally hosted AI model, open supported applications and websites, navigate certain folders, and store conversation history locally.
