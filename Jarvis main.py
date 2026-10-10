@@ -24,6 +24,8 @@ commands = {
 
     "/time": "Displays the current time and date",
 
+    "/messages": "Displays a list of all the messages you have sent to the ai model and the responses it has given",
+
     "/quit": "Stops the program"
 
 }
@@ -68,6 +70,13 @@ shortcuts_path = Path(shortcuts_folder)
 for item in shortcuts_path.iterdir():
    if item.is_file() and item.suffix == ".lnk":
       print(f"Shortcut: {item.name}, path: {item.resolve()}")
+
+
+def message_log(message, answer, mode):
+    current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    with open(MESSAGES_FILE, "a", encoding="utf-8") as file:
+        file.write(f"You: {message}\n Time: {current_time}\n")
+        file.write(f"Jarvis: {answer}\n Time: {current_time}\n Mode: {mode}\n")
 
 
 
@@ -135,6 +144,7 @@ while True:
 
     elif choice == "/help":
      print("Here's a list of all supported commands!")
+
      print(commands)
 
     elif choice == "/files":
@@ -150,28 +160,55 @@ while True:
         subprocess.run(["explorer.exe", r"C:\Users\k9734\OneDrive\Gallery"])
 
     elif choice == "/chat":
-     while True:  
-      message = input("You: ")
+    
+     while True:
+            message = input("You: ").strip()
 
-      if message.lower().strip() == "/exit":
-        break
+            if message.lower() == "/exit":
+                break
 
-      with open(MEMORY_FILE, "r" , encoding="utf-8") as file:
-         memory = file.read()
-  
-      answer = ask_jarvis(message, memory)
-      print("Jarvis:", answer)
+            if message.lower() == "/memory":
+                while True:
+                    mode = input("Would you like to memory read mode, or memory write mode? (Enter 'write', 'read', or 'return')").lower().strip()
 
-      current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                    if mode == "read":
+                        prompt = input("You: ").strip()
+                        with open(MEMORY_FILE, "r", encoding="utf-8") as file:
+                            memory = file.read()
+                        answer = ask_jarvis(prompt, memory)
+                        print("Jarvis:", answer)
+                        message_log(prompt, answer, "read")
 
-      #logs messages to a text file for later use
-      with open(MESSAGES_FILE, "a", encoding="utf-8") as file:
-        file.write(f"You: {message}, Time: {current_time}\n")
-        file.write(f"Jarvis: {answer}, Time: {current_time}\n")
+                    elif mode == "write":
+                        memory_note = input("What would you like to add to memory?").strip()
+                        with open(MEMORY_FILE, "a", encoding="utf-8") as file:
+                            file.write(memory_note + "\n")
+                        prompt = input("You: ").strip()
+                        with open(MEMORY_FILE, "r", encoding="utf-8") as file:
+                            memory = file.read()
+                        answer = ask_jarvis(prompt, memory)
+                        print("Jarvis:", answer)
+                        message_log(prompt, answer, "write")
 
+                    elif mode == "return":
+                        break
+
+                    else:
+                        print("This is not a valid mode. Please enter 'write', 'read', or 'return'.")
+
+                continue
+
+            answer = ask_jarvis(message, "")
+            print("Jarvis:", answer)
+
+            #write the message and the response to the messages file 
+            message_log(message, answer, "default")
 
     elif choice == "/memory":
      subprocess.Popen(["notepad", str(MEMORY_FILE)])
+
+    elif choice == "/messages":
+        subprocess.Popen(["notepad", str(MESSAGES_FILE)])
 
     elif choice == "/time":
      current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
