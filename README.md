@@ -1,66 +1,60 @@
 # Jarvis AI
 
-*A locally hosted AI-powered desktop assistant built with Python.*
+*A locally hosted, AI-powered desktop assistant built with Python.*
 
 ## Overview
 
-Jarvis ai is a windows assistant helper tool that can chat with you, open stuff for you and make life easier, I created this tool as a learning project but now I plan to make it something bigger.  This AI tool is used to make your life easier with opening commands and weather etc. without having to go and search stuff up.
+Jarvis AI is a Windows desktop assistant designed to make everyday tasks easier. It can chat with you using a locally hosted AI model, open supported applications and websites, navigate certain folders, and store conversation history locally.
+
+This project started as a learning project and is gradually expanding into a more capable desktop assistant. The goal is to make interacting with your computer easier through a simple command system and AI-powered features.
+
+Jarvis currently uses Ollama to run AI models locally. **Gemma 3 1B is the default model, but users can configure Jarvis to use other compatible Ollama models.**
 
 ## Features
 
-* **AI Chat:** You can interact with the local AI model by asking it questions, telling it to perform a simple task, or having a simple chat.
-* 
-* **Command System:** The way Jarvis listens to instructions is by using commands, common commands include, /open and /help which help lists all of the current commands and their uses, use a / to enter a command.
-* 
-* **Website Launcher:** You can open a website by using the command /open then typing in website which then asks you for the domain, which is a .com .gg etc. then enter the url (the website you want to enter) for youtube it would be like this /open, website, .com, youtube.
-
-* **Application Launcher:** Jarvis can currently open several common windows applications including, microsoft paint, microsoft edge, calculator, notepad, cmd, and task manager.
-* use /open to open an application then choose app and enter the app name.
-* 
-* **Memory System:** Jarvis has a built in command to remember things */memory* which opens your notepad to the file memory.txt and you can add things about yourself or things you want the ai model to know. NOTICE: This feature DOES NOT give the ai model itself ability to remember everything about you it reads the memory file every time before it responds so it can answer relative to what it knows.
-* 
-* **Conversation Logging:** The conversations you have with the ai model gets logged on a local file called "messages.txt" which records your message and Jarvis response with timestamps NOTICE: This DOES NOT let other people view your chats its stored locally on your device only.
-  
-* **File Navigation:** Jarvis can also open some file explorer areas like downloads and documents.
+* **AI Chat:** Chat with a locally hosted AI model, ask questions, and have conversations.
+* **Command System:** Use commands such as `/open` and `/help` to interact with Jarvis. Enter `/` commands at the main prompt.
+* **Website Launcher:** Open websites using the `/open` command and follow the prompts to enter the website information.
+* **Application Launcher:** Open supported Windows applications, including Microsoft Paint, Microsoft Edge, Calculator, Notepad, Command Prompt, and Task Manager.
+* **Memory System:** Use `/memory` to open `memory.txt` in Notepad. Add information you want Jarvis to consider when responding. Jarvis reads this file as context; it does not automatically train the AI model or give it unlimited permanent memory.
+* **Conversation Logging:** Messages and Jarvis responses are recorded in `messages.txt` with timestamps. The file is stored locally on your computer by default.
+* **File Navigation:** Open supported File Explorer locations, such as Downloads and Documents.
+* **Configurable AI Models:** Use Gemma 3 1B or another compatible model available through Ollama by updating the model configuration in the source code.
 
 ## Available Commands
 
-| Command    | Description                                                                           |
-| ---------- | ------------------------------------------------------------------------------------- |
-| `/open`    | [Explain how this command opens websites and applications.]                           |
-| `/weather` | [Describe what this command currently does, or state that it is not implemented yet.] |
-| `/help`    | Displays the available commands and their descriptions.                               |
-| `/files`   | [Explain how users navigate to supported folders.]                                    |
-| `/chat`    | Starts a conversation with the locally hosted AI model.                               |
-| `/memory`  | Opens the memory file so users can view or edit stored information.                   |
-| `/time`    | Displays the current date and time.                                                   |
-| `/quit`    | Exits the program.                                                                    |
-| `/exit`    | Exits AI chat and returns to the main command interface.                              |
+| Command    | Description                                                                                                  |
+| ---------- | ------------------------------------------------------------------------------------------------------------ |
+| `/open`    | Opens supported websites or applications by following the prompts.                                           |
+| `/weather` | Reserved for weather functionality; not yet implemented if the current version still contains a placeholder. |
+| `/help`    | Displays the available commands and their descriptions.                                                      |
+| `/files`   | Opens supported File Explorer locations, such as Downloads and Documents.                                    |
+| `/chat`    | Starts a conversation with the configured local AI model.                                                    |
+| `/memory`  | Opens the memory file so you can view or edit stored information.                                            |
+| `/time`    | Displays the current date and time.                                                                          |
+| `/quit`    | Exits the program.                                                                                           |
+| `/exit`    | Leaves AI chat and returns to the main command interface.                                                    |
 
 ## Requirements
 
-* **Operating System:** Windows is currently the supported operating system for this AI tool, however any operating system capable of using python libraries and ollama can  use the ai chat still with memory but app opening is native to windows.
-
-* **Python:** Python 3.10 or newer (recommended; compatibility with other versions has not been fully tested).
-* 
-* **Ollama:** Ollama is a platform that you can use to locally host ai models, you need to download it on windows the command is irm https://ollama.com/install.ps1 | iex you can use this to download ollama on your computer https://ollama.com/download/windows here is the page you can view.
-* 
-* **AI Model:** Currently Gemma3:1b is the currently coded ai model but if you have a preference to other ai models you can go into the section where the ai logic is by the top of the code and change your ai to the "model": "(your model here)" where gemma is right now.
-* 
-* **Python Dependencies:** You need the package 'requests' downloaded on python.
+* **Operating System:** Windows is the primary supported operating system. AI chat may work on other operating systems that support Python and Ollama, but Windows-specific features such as application launching may require changes.
+* **Python:** Python 3.x. Compatibility with different Python versions has not been fully tested.
+* **Ollama:** Required to run the AI model locally.
+* **An Ollama-compatible AI model:** Gemma 3 1B is the default, but other compatible models can be used.
+* **Python Dependencies:** The `requests` package.
 
 ## Installation
 
 ### 1. Download the Project
 
-You can download Jarvis AI by cloning the repository with Git or downloading it as a ZIP file.
+You can download Jarvis AI by cloning the repository using Git or downloading it as a ZIP file.
 
 **Option A: Clone using Git**
 
 Open a terminal and run:
 
 ```bash
-git clone https://github.com/konner6781-glitch/Jarvis-ai
+git clone https://github.com/konner6781-glitch/Jarvis-ai.git
 cd Jarvis-ai
 ```
 
@@ -76,7 +70,7 @@ cd Jarvis-ai
 
 Jarvis uses Python's `requests` package to communicate with Ollama. The other Python modules currently used by the project are included with Python.
 
-Run the following command in your terminal:
+Run:
 
 ```bash
 python -m pip install requests
@@ -88,45 +82,61 @@ If `python` doesn't work on Windows, try:
 py -m pip install requests
 ```
 
-### 3. Set Up Ollama
+### 3. Install Ollama
 
-Jarvis uses Ollama to run its AI model locally.
+Download and install Ollama from the official website:
 
-1. Download and install Ollama from https://ollama.com/.
-2. Open a terminal.
-3. Download the required model by running:
+https://ollama.com/download
+
+Ollama runs the AI model locally and provides the API that Jarvis uses to communicate with it.
+
+### 4. Download an AI Model
+
+**Gemma 3 1B is the default model, but you are not limited to it.**
+
+To download the default model, run:
 
 ```bash
 ollama pull gemma3:1b
 ```
-you can use another ai model but make sure to replace it in your code 
-Wait for the download to finish before continuing.
 
-### 4. Start the AI Service
+To use a different model, find a compatible model in the [Ollama model library](https://ollama.com/library) and download it using its documented model name.
 
-Ollama provides a local service that Jarvis uses to communicate with the AI model.
+For example, another model might be downloaded with a command like:
 
-Ollama normally starts its service automatically after installation. If it isn't running, open the Ollama application or start the service using the appropriate command for your operating system.
+```bash
+ollama pull MODEL_NAME
+```
 
-To check whether the local service is available, open this address in your browser:
+Replace `MODEL_NAME` with the actual name of the model you want to use.
+
+**Important:** Jarvis does not automatically switch models when you download a new one. You must also update the model name in the source code wherever the current model is configured. The model must be available through your local Ollama installation.
+
+Different models have different hardware requirements, response speeds, and capabilities. Choose a model that works well on your computer.
+
+### 5. Start the Ollama Service
+
+Ollama normally starts its service automatically after installation. If it isn't running, open the Ollama application or start the service using the appropriate method for your operating system.
+
+To check whether the local service is available, visit:
 
 http://localhost:11434
 
-If the service is running, Ollama should respond with a message indicating that it is running.
+If the service is running, it should return a message indicating that Ollama is running.
 
-You can also check whether the model is installed by running:
+To check which models are installed, run:
 
 ```bash
 ollama list
 ```
 
-Look for `gemma3:1b` OR your ai model in the list.
+Make sure your selected model appears in the list.
 
-### 5. Launch Jarvis
+### 6. Launch Jarvis
 
-Open a terminal in the project directory and run the Python file that contains the main program.
+Open a terminal in the project directory and run the Python file containing the main program.
 
-For example, if the main file is named `main.py`, run:
+For example, if the main file is named `main.py`:
 
 ```bash
 python main.py
@@ -138,58 +148,99 @@ On Windows, you can also use:
 py main.py
 ```
 
-Replace `main.py` with the actual name of your main Python file if it is different.
+Replace `main.py` with the actual filename if your main Python file has a different name.
 
-Once Jarvis starts, follow the instructions displayed in the terminal to interact with it.
+Once Jarvis starts, follow the prompts in the terminal to interact with it.
 
 ## Usage Guide
 
 ### Opening Websites
-To open websites using Jarvis you can use the /open command and then follow the prompt into website and enter your domain and url to the website.
+
+Use `/open` and select the website option. Follow the prompts to enter the website information.
 
 ### Opening Applications
-You can also open applications using /open to open apps follow the prompt into what app you want to enter. You will need to enter one of the supported apps.
+
+Use `/open` and select the application option. Enter the name of a supported application when prompted.
+
+Applications not currently supported by the launcher may not open.
 
 ### Using AI Chat
-Use the command /chat to have a chat with the ai model that you chose you can use /exit while in the chat to go back to the prompt to ask about what command.
+
+Enter `/chat` to start a conversation with your configured AI model. Enter `/exit` to return to the main command interface.
 
 ### Managing Memory
-to change things you want the ai model to know use the command /memory and it will open a file in notepad to change jarvis memory.
 
+Use `/memory` to open `memory.txt` in Notepad. Add or edit information you want Jarvis to consider in future responses.
+
+### Viewing Conversation History
+
+Jarvis records conversations in `messages.txt`, including timestamps. You can open the file using a text editor to review the saved messages.
 
 ## Configuration
-You can change the ai model in the code where the ai logic is listed make sure if you change the ai model you also make sure you have that same one installed and running.
+
+### Changing the AI Model
+
+Jarvis is currently configured to use `gemma3:1b` by default. You can change this to another model supported by your Ollama installation.
+
+1. Download your chosen model through Ollama.
+2. Locate the model configuration in the Jarvis source code.
+3. Replace `gemma3:1b` with the model's exact Ollama name.
+4. Save the changes and restart Jarvis.
+
+For example, if the code contains:
+
+```python
+"model": "gemma3:1b"
+```
+
+You can change the model name to match another model you have downloaded.
+
+The exact configuration may vary depending on how the model is referenced in the code. Make sure every relevant model reference is updated if necessary.
 
 ## Current Limitations
-As of right now apps dont open if they are not on the list of supported apps 
+
+* The application launcher currently supports a predefined list of applications.
+* Website launching follows the prompts implemented in the current command system.
+* The weather command may not be implemented yet.
+* AI responses depend on the selected model's capabilities and available computer resources.
+* Changing the configured model requires editing the source code.
+* Some features rely on Windows-specific paths or applications.
 
 ## Planned Features
-Later Jarvis will be able to open any app for you and have more control over files on your computer
-NOTICE: Jarvis WILL NOT create read or manage files on your computer without permission. OR under specific instruction.
+
+Future development may include:
+
+* Discovering and launching more applications automatically.
+* Improved natural-language command handling.
+* Expanded file navigation and management, with appropriate user permission and confirmation.
+* Voice input and spoken responses.
+* Screenshot analysis and other AI-assisted desktop features.
+
+Jarvis should validate AI-suggested actions before executing them, especially for operations that could modify files or affect the computer.
 
 ## Technology Stack
 
-* **Python:** Python is the code of this project, it does everything that is in the code as instructed and it is the do of the project.
-* 
-* **Ollama:** Ollama hosts the ai model you choose locally on your computer for free.
-
-* **Gemma 3 1B:** Gemma3:1b is the currently defualt ai model for this project although the model can be changed at any point in the project.
-
-* **Requests:** Requests has the job of communicating with the local ai model 
-
-* **Pathlib / OS:** These libraries help to access files and operating system functions and operations on your computer.
-
+* **Python:** Powers the command system, application launching, file navigation, and AI integration.
+* **Ollama:** Runs compatible AI models locally and provides a local API.
+* **Gemma 3 1B:** The default AI model currently configured for Jarvis. It can be replaced with another compatible Ollama model.
+* **Requests:** Sends requests to Ollama's local API and receives responses.
+* **Pathlib / OS:** Help manage file paths, directories, and operating-system information.
+* **Subprocess:** Launches supported applications and system processes.
+* **Webbrowser:** Opens websites in the default browser.
+* **Datetime:** Provides timestamps and current date and time information.
 
 ## Contributing and Feedback
 
-[Explain whether users can report bugs, suggest improvements, or contribute code. Include instructions for reporting issues if you want to accept them.]
+Jarvis AI is an ongoing learning project. Suggestions, bug reports, and feature requests are welcome.
+
+If you encounter a bug or have an idea for an improvement, open an issue in this GitHub repository and describe the problem or suggestion. Include relevant error messages and steps to reproduce a bug when possible.
 
 ## License
-This project has no currently specified open source license.
 
+This project does not currently specify an open-source license. Until a license is added, others should not assume they have permission to redistribute or modify the project under open-source terms.
 
 ## Project Status
-This project is currently under development and are working on new features Stay on track for updates.
 
-[Describe the current development stage, what works today, and what you are actively working on next.]
+Jarvis AI is currently under development. The existing version supports a command-based interface, local AI chat, configurable Ollama model selection, application and website launching, basic file navigation, editable memory, and local conversation logging.
 
+Development will continue as new features are added and existing functionality is improved.
