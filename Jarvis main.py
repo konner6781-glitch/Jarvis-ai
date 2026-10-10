@@ -32,7 +32,7 @@ commands = {
 user_directory = os.path.expanduser("~")
 onedrive_directory = os.environ.get("OneDrive")
 user_path = Path(user_directory)
-
+onedrive_path = Path(onedrive_directory)
 
 
 
