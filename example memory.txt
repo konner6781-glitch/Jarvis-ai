@@ -1,0 +1,7 @@
+THIS IS AN EXAMPLE OF WHAT MEMORY COULD LOOK LIKE:
+
+I like cars.
+I like the color blue.
+My favorite car is a Lamborghini.
+
+The ai will read this before it answers.
