@@ -5,7 +5,7 @@ import requests
 response = requests.post(
     "http://localhost:11434/api/generate",
     json={
-        "model": "gemma4:latest",
+        "model": "gemma3:1b",
         "prompt": """
 You are the command interpreter for Jarvis.
 
