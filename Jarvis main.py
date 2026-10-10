@@ -69,7 +69,7 @@ shortcuts_path = Path(shortcuts_folder)
 
 for item in shortcuts_path.iterdir():
    if item.is_file() and item.suffix == ".lnk":
-      print(f"Shortcut: {item.name}, path: {item.resolve()}")
+      print(f"Shortcut: {item.name}")
 
 
 def message_log(message, answer, mode):
@@ -182,7 +182,7 @@ while True:
                     elif mode == "write":
                         memory_note = input("What would you like to add to memory?").strip()
                         with open(MEMORY_FILE, "a", encoding="utf-8") as file:
-                            file.write(memory_note + "\n")
+                            file.write("\n" + memory_note + "\n")
                         prompt = input("You: ").strip()
                         with open(MEMORY_FILE, "r", encoding="utf-8") as file:
                             memory = file.read()
