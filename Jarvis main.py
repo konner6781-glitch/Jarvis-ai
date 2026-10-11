@@ -6,6 +6,7 @@ import os
 import datetime
 import requests
 from pathlib import Path  
+import json
 
 #the commands for jarvis and their uses
 commands = {
@@ -62,6 +63,24 @@ PRIVATE_DATA_FOLDER.mkdir(exist_ok=True)
 
 MEMORY_FILE = PRIVATE_DATA_FOLDER / "memory.txt"
 MESSAGES_FILE = PRIVATE_DATA_FOLDER / "messages.txt"
+
+settings_config = JARVIS_FOLDER / "settings.json"
+if settings_config.exists():
+    with open(settings_config, "r", encoding="utf-8") as file:
+        settings = json.load(file)
+
+else:
+    settings = {
+    "model": "gemma3:1b",
+    "ollama_url": "http://localhost:11434",
+    "temperature": 0.7,
+    "request_timeout": 60,
+    "memory_enabled": True,
+    "logging_enabled": True
+    }
+    with open(settings_config, "w", encoding="utf-8") as file:
+      json.dump(settings, file)
+
 
 shortcuts_folder = f"{user_path}\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs"
 shortcuts_path = Path(shortcuts_folder)
