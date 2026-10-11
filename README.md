@@ -1,180 +1,131 @@
 # Jarvis AI
 
-A locally hosted, AI-powered desktop assistant built with Python.
-
-Jarvis AI is a personal desktop assistant that combines Python automation with a locally hosted AI model through Ollama. It can open applications and websites, interact with you through a terminal chat, maintain a text-based memory file, and record conversations for later review.
+A personal AI assistant built with Python and Ollama. Jarvis runs locally using a language model and includes chat, memory, message logging, and helpful commands.
 
 ## Features
 
-* **Local AI chat:** Chat with the Gemma 3 1B model through Ollama without requiring a paid AI API key.
-* **Application launcher:** Open supported Windows applications directly from the terminal.
-* **Website launcher:** Open websites by entering a website name and domain.
-* **Memory system:** Store information in a text file for Jarvis to reference in memory-enabled chat modes.
-* **Memory read mode:** Let Jarvis use saved memory when generating responses.
-* **Memory write mode:** Add new information to the memory file and then chat with Jarvis using the updated memory.
-* **Conversation logging:** Save user messages, Jarvis's responses, timestamps, and chat modes to a log file.
-* **File explorer shortcuts:** Open supported folders such as Downloads, Documents, and Gallery.
-* **Command menu:** Use `/help` to view available commands and descriptions.
-* **Example files:** View example memory and message-log formats without exposing your actual private data.
+* **Local AI chat** powered by Ollama.
+* **Persistent memory** to store notes and information for future conversations.
+* **Message logging** to keep a record of conversations.
+* **Built-in commands** to access features such as time, files, applications, and memory.
+* **Terminal interface** for the main Jarvis experience.
+* **Optional GUI interface** for users who prefer a graphical, ChatGPT-style layout.
+
+## Interfaces
+
+Jarvis offers two ways to interact with the assistant.
+
+### Terminal Version — Main Version
+
+The terminal version is the primary version of Jarvis AI. It is the main development focus and is expected to receive **more frequent updates, improvements, bug fixes, and support**.
+
+The terminal version is recommended for users who want the latest features and the most actively maintained experience.
+
+### GUI Version — Optional
+
+An optional graphical user interface (GUI) is available for users who prefer a more visual experience instead of interacting through the terminal.
+
+The GUI is intended to make Jarvis easier to navigate through a chat-style interface. Availability of features may depend on the current state of GUI development.
+
+**Please note:** The GUI is an alternative interface, not the primary development focus. Updates and support for the GUI may be less frequent than for the terminal version.
 
 ## Requirements
 
-* Windows
-* Python
+* Python 3
 * [Ollama](https://ollama.com/)
-* The `gemma3:1b` model, or another compatible model configured in the code
-* Python `requests` library
+* The `gemma3:1b` model, unless the model configuration has been changed
+* Python packages used by the project, including `requests`
 
 ## Setup
 
-1. Install Python if it is not already installed.
+### 1. Install Python
 
-2. Install Ollama from [ollama.com](https://ollama.com/).
+Download Python from [python.org](https://www.python.org/downloads/) if it is not already installed.
 
-3. Download the default AI model by running this command in your terminal:
+### 2. Install Ollama
 
-   ```bash
-   ollama pull gemma3:1b
-   ```
+Download and install Ollama from [ollama.com](https://ollama.com/).
 
-4. Install the required Python package:
+### 3. Download the model
 
-   ```bash
-   pip install requests
-   ```
+Open a terminal and run:
 
-5. Make sure Ollama is running locally.
+```bash
+ollama pull gemma3:1b
+```
 
-6. From the project folder, launch the desktop interface with:
+Make sure Ollama is running before starting Jarvis.
 
-   ```bash
-   python "Jarvis_GUI_Integrated.py"
-   ```
+### 4. Install dependencies
 
-   To use the original terminal interface instead, run:
+From the project directory, run:
 
-   ```bash
-   python "Jarvis main.py"
-   ```
+```bash
+pip install requests
+```
 
-Jarvis connects to Ollama through its local API at `http://localhost:11434/api/chat`.
+Install any additional dependencies required by the interface you choose.
 
-No external AI API key is required for the default local setup.
+### 5. Start Jarvis
+
+**Terminal version:**
+
+Run the main Python file:
+
+```bash
+python "Jarvis main.py"
+```
+
+**GUI version:**
+
+Run the GUI Python file included in the project, if available:
+
+```bash
+python "Jarvis GUI.py"
+```
+
+The GUI filename may differ depending on the version of the project. Use the actual filename provided in your copy of the repository.
 
 ## Commands
 
-| Command     | Description                                                                                                |
-| ----------- | ---------------------------------------------------------------------------------------------------------- |
-| `/open`     | Opens a supported application or website.                                                                  |
-| `/weather`  | Reserved for weather functionality; implementation is not yet complete.                                    |
-| `/help`     | Displays the available commands and their descriptions.                                                    |
-| `/files`    | Opens a supported folder in File Explorer.                                                                 |
-| `/chat`     | Starts a conversation with the AI model.                                                                   |
-| `/memory`   | Opens the memory file in Notepad when used from the main menu. Inside chat, it opens the memory-mode menu. |
-| `/messages` | Opens the conversation log in Notepad.                                                                     |
-| `/time`     | Displays the current date and time.                                                                        |
-| `/quit`     | Stops the program.                                                                                         |
+Jarvis includes commands for accessing different features. Available commands may change as development continues.
 
-### Chat commands
+| Command     | Description                                             |
+| ----------- | ------------------------------------------------------- |
+| `/help`     | Display available commands                              |
+| `/chat`     | Enter the chat interface                                |
+| `/memory`   | View or manage Jarvis memory                            |
+| `/messages` | Open the conversation log                               |
+| `/files`    | Access supported file locations                         |
+| `/open`     | Open supported applications or websites                 |
+| `/weather`  | Weather command; availability depends on implementation |
+| `/time`     | Display the current date and time                       |
+| `/quit`     | Exit Jarvis                                             |
+| `/exit`     | Exit the current chat session                           |
 
-While inside `/chat`:
+Some commands may behave differently depending on whether you are using the terminal or GUI interface.
 
-| Command   | Description                                       |
-| --------- | ------------------------------------------------- |
-| `/memory` | Opens the memory-mode menu.                       |
-| `/exit`   | Leaves chat and returns to the main command menu. |
+## Memory and Privacy
 
-### Memory modes
+Jarvis uses local files to store memory and conversation history. These files may contain personal information, so they should not be shared publicly.
 
-After entering `/memory` inside chat, choose a mode:
+Private data files should remain excluded from version control. Review `.gitignore` before committing or uploading changes to ensure private memory and message logs are not included.
 
-* **Read (`read`)** — Jarvis reads `memory.txt` and uses its contents when answering your prompt.
-* **Write (`write`)** — Enter a memory note to append to `memory.txt`. Jarvis then loads the updated memory and answers your next prompt using it.
-* **Return (`return`)** — Leaves the memory menu and returns to normal chat.
+The AI model runs through your local Ollama installation. However, the privacy of other features depends on how they are implemented and configured.
 
-The terminal version does not load saved memory in normal chat. The desktop app also starts with memory use disabled; turn it on in Settings to include saved notes in ordinary conversations. Read and write memory modes always use the saved file.
+## Development and Updates
 
-## Data and file storage
+Jarvis AI is an ongoing project. Features, commands, and interfaces may change as development continues.
 
-Jarvis stores its memory and message log in a `private_data` folder alongside the main Python file.
+The **terminal version is the main development priority** and should receive more frequent updates and support. The GUI is provided as an optional alternative and may receive updates less frequently.
 
-```text
-jarvis/
-├── Jarvis main.py
-├── ollama test.py
-├── README.md
-├── .gitignore
-├── memory example.txt
-├── messages example.txt
-└── private_data/
-    ├── memory.txt
-    └── messages.txt
-```
-
-The example files demonstrate the intended formatting. They are not intended to contain real private memories or actual conversation logs.
-
-### Memory file
-
-`memory.txt` stores information you choose to save. In memory-read and memory-write modes, Jarvis loads the saved contents to provide context for its responses.
-
-Example:
-
-```text
-My favorite car is a Lamborghini.
-My favorite color is blue.
-I like coding.
-```
-
-### Message log
-
-`messages.txt` records chat interactions with timestamps and mode labels.
-
-The modes currently recorded are:
-
-* `default` — Normal chat; the desktop app setting can optionally include saved memory.
-* `read` — Chat using saved memory.
-* `write` — Chat following a memory update.
-
-Example:
-
-```text
-You: Hello
-Time: 2026-10-10 17:30:00
-Mode: default
-Jarvis: Hello! How can I help?
-Time: 2026-10-10 17:30:00
-Mode: default
-```
-
-Memory and message logs are excluded from version control using `.gitignore` so personal data is not intentionally uploaded to the public repository.
-
-## Supported applications
-
-The `/open` command currently supports applications such as:
-
-* Calculator
-* Notepad
-* Microsoft Paint
-* Command Prompt
-* File Explorer
-* Task Manager
-* Microsoft Edge
-* Windows Settings
-
-Application availability and paths may vary between Windows installations.
-
-## Privacy
-
-Jarvis uses a locally hosted Ollama model for AI responses. Its memory and conversation logs are stored as local text files.
-
-The `private_data/` directory is excluded from Git tracking. Keep personal information out of public example files, and check your repository before pushing changes to ensure private data is not included.
-
-## Project status
-
-Jarvis AI is an ongoing personal Python project. Features are developed and improved over time as I learn more about Python, functions, file handling, loops, APIs, and debugging.
-
-The goal is to build a useful desktop assistant while understanding and maintaining the code behind it.
+Bug reports, suggestions, and contributions are welcome, but compatibility and feature availability may vary between versions.
 
 ## License
 
-No license has been specified yet.
+Check the repository for the project's current license before redistributing or modifying it.
+
+---
+
+**Jarvis AI — A personal assistant built with Python and Ollama.**
+
