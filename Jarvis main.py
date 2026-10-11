@@ -41,20 +41,23 @@ onedrive_path = Path(onedrive_directory)
 #ai reusable logic for the rest of the program
 
 def ask_jarvis(message, memory):
+    ollama_options = {
+        "temperature": settings["temperature"]
+    }
+
     response = requests.post(
-        "http://localhost:11434/api/chat",
+        settings["ollama_url"] + "/api/chat",
         json={
-            "model": "gemma3:1b",
+            "model": settings["model"],
             "messages": [
                 {"role": "user", "content": message},
                 {"role": "system", "content": memory}
             ],
-            "stream": False
-        }
+            "stream": False,
+            "options": ollama_options
+        },
+        timeout=settings["request_timeout"]
     )
-
-    return response.json()["message"]["content"]
-
 
 JARVIS_FOLDER = Path(__file__).parent
 
@@ -80,6 +83,7 @@ else:
     }
     with open(settings_config, "w", encoding="utf-8") as file:
       json.dump(settings, file)
+print(settings)
 
 
 shortcuts_folder = f"{user_path}\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs"
@@ -177,49 +181,48 @@ while True:
         subprocess.run(["explorer.exe", r"C:\Users\k9734\OneDrive\Gallery"])
 
     elif choice == "/chat":
-    
+     memory_active = True
      while True:
+            
             message = input("You: ").strip()
 
+            with open(MEMORY_FILE, "r", encoding="utf-8") as file:
+                                memory = file.read()
+
             if message.lower() == "/exit":
-                break
+             break
 
-            if message.lower() == "/memory":
-                while True:
-                    mode = input("Would you like to memory read mode, or memory write mode? (Enter 'write', 'read', or 'return')").lower().strip()
+            elif message.lower() == "/memory write":
+                 memory_note = input("What would you like to add to memory?").strip()
+                 with open(MEMORY_FILE, "a", encoding="utf-8") as file:
+                  file.write("\n" + memory_note + "\n")
+                  prompt = input("You: ").strip()
+                 with open(MEMORY_FILE, "r", encoding="utf-8") as file:
+                    memory = file.read()
+                    answer = ask_jarvis(prompt, memory)
+                    print("Jarvis:", answer)
+                    message_log(prompt, answer, "write")
+                    continue 
 
-                    if mode == "read":
-                        prompt = input("You: ").strip()
-                        with open(MEMORY_FILE, "r", encoding="utf-8") as file:
-                            memory = file.read()
-                        answer = ask_jarvis(prompt, memory)
-                        print("Jarvis:", answer)
-                        message_log(prompt, answer, "read")
+            elif message.lower() == "/memory disable":
+                         memory_active = False
+                         message = input("You: ")
+            
+                         answer = ask_jarvis(message, "")
+                         print("Jarvis: ", answer)
+                         message_log(message, answer, "memory disabled")
+                         continue 
+            
 
-                    elif mode == "write":
-                        memory_note = input("What would you like to add to memory?").strip()
-                        with open(MEMORY_FILE, "a", encoding="utf-8") as file:
-                            file.write("\n" + memory_note + "\n")
-                        prompt = input("You: ").strip()
-                        with open(MEMORY_FILE, "r", encoding="utf-8") as file:
-                            memory = file.read()
-                        answer = ask_jarvis(prompt, memory)
-                        print("Jarvis:", answer)
-                        message_log(prompt, answer, "write")
+            if memory_active: 
+              answer = ask_jarvis(message, memory)
 
-                    elif mode == "return":
-                        break
+            elif not memory_active:
+               answer = ask_jarvis(message, "")
+           
+            print("Jarvis: ", answer)
+            message_log(message, answer, "memory mode")
 
-                    else:
-                        print("This is not a valid mode. Please enter 'write', 'read', or 'return'.")
-
-                continue
-
-            answer = ask_jarvis(message, "")
-            print("Jarvis:", answer)
-
-            #write the message and the response to the messages file 
-            message_log(message, answer, "default")
 
     elif choice == "/memory":
      subprocess.Popen(["notepad", str(MEMORY_FILE)])
