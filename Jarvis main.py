@@ -50,14 +50,19 @@ def ask_jarvis(message, memory):
         json={
             "model": settings["model"],
             "messages": [
-                {"role": "user", "content": message},
-                {"role": "system", "content": memory}
-            ],
+    {
+        "role": "system",
+        "content": f'{settings["memory_prompt"]}\n\nSaved memory:\n{memory}'
+    },
+    {"role": "user", "content": message}
+],
             "stream": False,
             "options": ollama_options
         },
         timeout=settings["request_timeout"]
     )
+    data = response.json()
+    return data["message"]["content"]
 
 JARVIS_FOLDER = Path(__file__).parent
 
@@ -79,11 +84,12 @@ else:
     "temperature": 0.7,
     "request_timeout": 60,
     "memory_enabled": True,
-    "logging_enabled": True
+    "logging_enabled": True,
+    "memory_prompt": "Use saved memory only when it is relevant to the user's current message. Do not list, repeat, or bring up stored facts unnecessarily. Use relevant memories naturally to improve your response. If no memory is relevant, answer normally without mentioning memory."
     }
     with open(settings_config, "w", encoding="utf-8") as file:
       json.dump(settings, file)
-print(settings)
+
 
 
 shortcuts_folder = f"{user_path}\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs"
