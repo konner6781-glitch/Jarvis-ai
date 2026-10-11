@@ -5,8 +5,9 @@ import webbrowser
 import os
 import datetime
 import requests
-from pathlib import Path  
 import json
+from pathlib import Path  
+
 
 #the commands for jarvis and their uses
 commands = {
